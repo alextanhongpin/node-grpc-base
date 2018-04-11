@@ -10,6 +10,8 @@ const hostname = os.hostname()
 // Implements the greet method
 function greet (call, callback) {
 	const reply = new messages.GreetResponse()
+	const meta = call.metadata.get('authorization')
+	console.log(`got metadata: ${meta}`, JSON.stringify(call.metadata))
 	// The pattern here is set{field}, so if your proto message field is `text`, it will be `setText`
 	reply.setText(`${hostname}: Hello, ${call.request.getText()}`)
 	callback(null, reply)

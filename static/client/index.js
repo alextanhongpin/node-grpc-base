@@ -9,10 +9,13 @@ const hostname = os.hostname()
 function main() {
 	const client = new services.EchoClient(port, grpc.credentials.createInsecure())
 	const request = new messages.GreetRequest()
-	
+	const metadata = new grpc.Metadata();
+	metadata.add('authorization', 'secret')
+
 	// If the field name in proto is `text`, then a `setText` method will be exposed
 	request.setText('John Doe')
-	client.greet(request, (err, res) => {
+
+	client.greet(request, metadata, (err, res) => {
 		console.log(`greeting from ${res.getText()}`)
 	})
 }
