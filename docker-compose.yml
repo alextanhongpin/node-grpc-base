@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+  server:
+    build: ./static/server
+    ports:
+      - 127.0.0.1:50051:50051
+    environment:
+      - PORT=0.0.0.0:50051
+  
+  client:
+    build: ./static/client
+    environment:
+      - PORT=server:50051
+  
